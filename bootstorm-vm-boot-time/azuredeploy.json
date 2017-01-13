@@ -312,7 +312,7 @@
             "AzureStorageAccount": "[variables('uniqueStorageAccountName')]",
             "AzureStorageAccessKey": "[listKeys(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')), '2015-06-15').key1]",
             "AzureStorageEndpoint": "[reference(resourceId('Microsoft.Storage/storageAccounts', variables('uniqueStorageAccountName')), '2015-06-15').primaryEndpoints['blob']]",
-            "AzureSubscription": "test1"
+            "AzureSubscription": "[subscription().subscriptionId]"
           }
         },
         "protectedSettings": {
