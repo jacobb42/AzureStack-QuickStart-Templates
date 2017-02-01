@@ -84,7 +84,7 @@
     "uniqueStorageAccountName": "[tolower(concat('sa', resourceGroup().name))]",
     "uniqueStorageAccountContainerName": "[tolower(concat('sc', resourceGroup().name))]",
     "vmAdminUsername": "vmadministrator",
-    "vmAdminPassword": "[subscription().subscriptionId]",
+    "vmAdminPassword": "!!1234567890abc",
     "vmName": "[concat('vm', resourceGroup().name)]",
     "vmOsDiskName": "[concat('od', resourceGroup().name)]",
     "vmDataDiskName": "[concat('dd', resourceGroup().name)]",
