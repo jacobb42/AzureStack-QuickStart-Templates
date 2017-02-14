@@ -70,7 +70,7 @@
     "modulesPath": "https://raw.githubusercontent.com/jacobb42/AzureStack-QuickStart-Templates/master/bootstorm-vm-boot-time/",
     "moduleVMBootAll": "VMBootAll.zip",
     "modulesUrlVMBootAll": "[concat(variables('modulesPath'),variables('moduleVMBootAll'))]",
-    "configurationFunctionVMBootAll": "VMBootAll.ps1\\ConfigureVMBootAll"
+    "configurationFunctionVMBootAll": "VMBootAll.ps1\\ConfigureVMBootAll",
     "controllerVmSize": "Standard_A2"
   },
   "resources": [
