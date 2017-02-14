@@ -71,6 +71,7 @@
     "moduleVMBootAll": "VMBootAll.zip",
     "modulesUrlVMBootAll": "[concat(variables('modulesPath'),variables('moduleVMBootAll'))]",
     "configurationFunctionVMBootAll": "VMBootAll.ps1\\ConfigureVMBootAll"
+    "controllerVmSize": "Standard_A2"
   },
   "resources": [
     {
@@ -189,7 +190,7 @@
       ],
       "properties": {
         "hardwareProfile": {
-          "vmSize": "[parameters('vmSize')]"
+          "vmSize": "[variables('controllerVmSize')]"
         },
         "osProfile": {
           "computerName": "[variables('vmName')]",
