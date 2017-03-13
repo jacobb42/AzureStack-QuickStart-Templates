@@ -159,55 +159,6 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Compute/virtualMachines",
-      "name": "[variables('vmName')]",
-      "location": "[variables('location')]",
-      "dependsOn": [
-        "[concat('Microsoft.Storage/storageAccounts/',variables('uniqueStorageAccountName'))]",
-        "[concat('Microsoft.Network/networkInterfaces/',variables('vmNicName'))]"
-      ],
-      "properties": {
-        "hardwareProfile": {
-          "vmSize": "[variables('controllerVmSize')]"
-        },
-        "osProfile": {
-          "computerName": "[variables('vmName')]",
-          "adminUsername": "[variables('vmAdminUsername')]",
-          "adminPassword": "[variables('vmAdminPassword')]"
-        },
-        "storageProfile": {
-          "imageReference": {
-            "publisher": "[variables('imagePublisher')]",
-            "offer": "[variables('imageOffer')]",
-            "sku": "[variables('vmOsSku')]",
-            "version": "latest"
-          },
-          "osDisk": {
-            "name": "osdisk",
-            "vhd": {
-              "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),'/',variables('vmOsDiskName'),'.vhd')]"
-            },
-            "caching": "ReadWrite",
-            "createOption": "FromImage"
-          }
-        },
-        "networkProfile": {
-          "networkInterfaces": [
-            {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('vmNicName')))]"
-            }
-          ]
-        },
-        "diagnosticsProfile": {
-          "bootDiagnostics": {
-            "enabled": "true",
-            "storageUri": "[reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob]"
-          }
-        }
-      }
-    },
-    {
-      "apiVersion": "2015-06-15",
-      "type": "Microsoft.Compute/virtualMachines",
       "name": "[concat(variables('vmName'),copyIndex())]",
       "location": "[variables('location')]",
       "copy": {
