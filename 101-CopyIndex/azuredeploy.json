@@ -47,8 +47,7 @@
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
     "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
     "nsgName": "[concat('ng', resourceGroup().name)]",
-    "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups',variables('nsgName'))]",    
-    "controllerVmSize": "Standard_A2"
+    "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups',variables('nsgName'))]",        
   },
   "resources": [
     {
@@ -111,28 +110,6 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[variables('vmNicName')]",
-      "location": "[variables('location')]",
-      "dependsOn": [
-        "[concat('Microsoft.Network/virtualNetworks/',variables('virtualNetworkName'))]"
-      ],
-      "properties": {
-        "ipConfigurations": [
-          {
-            "name": "ipconfigpri",
-            "properties": {
-              "privateIPAllocationMethod": "Dynamic",
-              "subnet": {
-                "id": "[variables('subnetRef')]"
-              }
-            }
-          }
-        ]
-      }
-    },
-    {
-      "apiVersion": "2015-06-15",
-      "type": "Microsoft.Network/networkInterfaces",
       "name": "[concat(variables('vmNicName'),copyIndex())]",
       "location": "[variables('location')]",
       "copy": {
@@ -167,7 +144,7 @@
       },
       "dependsOn": [
         "[concat('Microsoft.Storage/storageAccounts/',variables('uniqueStorageAccountName'))]",
-        "[concat('Microsoft.Network/networkInterfaces/',variables('vmNicName'),copyIndex())]"
+        "[concat('Microsoft.Network/networkInterfaces/',variables('vmNicName'),copyIndex())]"          
       ],
       "properties": {
         "hardwareProfile": {
