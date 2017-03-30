@@ -57,7 +57,7 @@
       "metadata": {
         "description": "Operations per file per thread to start goal seeking at."
       }
-    }
+    },
     "vmIoDurationInSec": {
       "type": "int",
       "defaultValue": 60,
