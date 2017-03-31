@@ -51,6 +51,13 @@
         "description": "VM IO workload latency threshold in milliseconds."
       }
     },
+    "vmIoStartOperations": {
+      "type": "int",
+      "defaultValue": 1,
+      "metadata": {
+        "description": "Operations per file per thread to start goal seeking at."
+      }
+    },
     "vmIoDurationInSec": {
       "type": "int",
       "defaultValue": 60,
@@ -355,6 +362,7 @@
             "VMAdminUserName": "[variables('vmAdminUsername')]",
             "VMAdminPassword": "[variables('vmAdminPassword')]",
             "VMIoMaxLatency": "[parameters('vmIoLatencyThresholdInMS')]",
+            "VMIoStartOperations": "[parameters('vmIoStartOperations')]",           
             "Location": "[variables('location')]",
             "AzureStorageAccount": "[variables('uniqueStorageAccountName')]",
             "AzureStorageAccessKey": "[listKeys(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')), '2015-06-15').key1]",
