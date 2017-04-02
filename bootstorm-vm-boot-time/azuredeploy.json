@@ -54,7 +54,8 @@
       ],
       "metadata": {
         "description": "VM size supported by Azure Stack."
-      }    
+      }   
+    }
   },
   "variables": {
     "imagePublisher": "MicrosoftWindowsServer",
