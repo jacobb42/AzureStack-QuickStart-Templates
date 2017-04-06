@@ -115,8 +115,7 @@
     "modulesUrlVMIOWorkload": "[concat(variables('modulesPath'),variables('moduleVMIOWorkload'))]",
     "configurationFunctionVMIOController": "VMIOWorkloadController.ps1\\ConfigureVMIO",
     "configurationFunctionVMIOWorkload": "VMIOWorkload.ps1\\ConfigureVMIO",
-    "publicIPAddressName": "[tolower(concat('vmpip',resourceGroup().name))]",
-    "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
+    "publicIPAddressName": "[tolower(concat('vmpip',resourceGroup().name))]",    
     "dnsPrefix": "[tolower(concat('vmdns', resourceGroup().name))]"
   },
   "resources": [
@@ -210,8 +209,9 @@
               "subnet": {
                 "id": "[variables('subnetRef')]"
               },
-            "publicIPAddress": {
-              "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"              
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"              
+              }
             }
           }
         ]
