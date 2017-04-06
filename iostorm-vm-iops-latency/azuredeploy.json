@@ -43,6 +43,13 @@
       "metadata": {
         "description": "VM IO workload target data disk size in GB."
       }
+    },    
+    "WaitForIoStormCompletion": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "If true template will not complete deployment until IO test is complete."
+      }
     },
     "vmIoLatencyThresholdInMS": {
       "type": "int",
@@ -421,7 +428,8 @@
             "VMIoBlockSize": "[parameters('vmIoBlockSizeInBytes')]",
             "VMIoDuration": "[parameters('vmIoDurationInSec')]",
             "VMIoReadPercentage": "[parameters('vmIoReadPercentage')]",
-            "VMIoMaxLatency": "[parameters('vmIoLatencyThresholdInMS')]"
+            "VMIoMaxLatency": "[parameters('vmIoLatencyThresholdInMS')]",
+            "WaitForIoStormCompletion" : "[parameters('WaitForIoStormCompletion')]"
           }
         }
       }
