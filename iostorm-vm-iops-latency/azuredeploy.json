@@ -9,6 +9,14 @@
         "description": "Number of VMs to create and run IO simulation in determining the maximum IOPS reached without exceeding specified latency thresholds as acceptable performance limit."
       }
     },
+    "vmAdminPassword": {
+      "type": "string",
+      "defaultValue": "defaultValue": "[concat('Subscription#',subscription().subscriptionId)]"
+      ],
+      "metadata": {
+        "description": "Admin password for the VMs"
+      }
+    },    
     "vmOsSku": {
       "type": "string",
       "defaultValue": "2012-R2-Datacenter",
@@ -97,8 +105,7 @@
     "storageAccountType": "Standard_LRS",
     "uniqueStorageAccountName": "[tolower(concat('sa', resourceGroup().name))]",
     "uniqueStorageAccountContainerName": "[tolower(concat('sc', resourceGroup().name))]",
-    "vmAdminUsername": "vmadministrator",
-    "vmAdminPassword": "!!1234567890abc",
+    "vmAdminUsername": "vmadministrator",    
     "vmName": "[concat('vm', resourceGroup().name)]",
     "vmOsDiskName": "[concat('od', resourceGroup().name)]",
     "vmDataDiskName": "[concat('dd', resourceGroup().name)]",
@@ -259,7 +266,7 @@
         "osProfile": {
           "computerName": "[variables('vmName')]",
           "adminUsername": "[variables('vmAdminUsername')]",
-          "adminPassword": "[variables('vmAdminPassword')]"
+          "adminPassword": "[parameters('vmAdminPassword')]"
         },
         "storageProfile": {
           "imageReference": {
@@ -313,7 +320,7 @@
         "osProfile": {
           "computerName": "[variables('vmName')]",
           "adminUsername": "[variables('vmAdminUsername')]",
-          "adminPassword": "[variables('vmAdminPassword')]"
+          "adminPassword": "[parameters('vmAdminPassword')]"
         },
         "storageProfile": {
           "imageReference": {
@@ -388,7 +395,7 @@
             "VMName": "[variables('vmName')]",
             "VMCount": "[parameters('vmCount')]",
             "VMAdminUserName": "[variables('vmAdminUsername')]",
-            "VMAdminPassword": "[variables('vmAdminPassword')]",
+            "VMAdminPassword": "[parameters('vmAdminPassword')]",
             "VMIoMaxLatency": "[parameters('vmIoLatencyThresholdInMS')]",
             "VMIoStartOperations": "[parameters('vmIoStartOperations')]",           
             "Location": "[variables('location')]",
@@ -425,7 +432,7 @@
             "ControllerVMPrivateIP": "[reference(variables('vmNicName')).ipConfigurations[0].properties.privateIPAddress]",
             "VMName": "[concat(variables('vmName'),copyIndex())]",
             "VMAdminUserName": "[variables('vmAdminUsername')]",
-            "VMAdminPassword": "[variables('vmAdminPassword')]",
+            "VMAdminPassword": "[parameters('vmAdminPassword')]",
             "VMIoBlockSize": "[parameters('vmIoBlockSizeInBytes')]",
             "VMIoDuration": "[parameters('vmIoDurationInSec')]",
             "VMIoReadPercentage": "[parameters('vmIoReadPercentage')]",
