@@ -394,7 +394,8 @@
             "Location": "[variables('location')]",
             "AzureStorageAccount": "[variables('uniqueStorageAccountName')]",
             "AzureStorageAccessKey": "[listKeys(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')), '2015-06-15').key1]",
-            "AzureStorageEndpoint": "[reference(resourceId('Microsoft.Storage/storageAccounts', variables('uniqueStorageAccountName')), '2015-06-15').primaryEndpoints['blob']]"
+            "AzureStorageEndpoint": "[reference(resourceId('Microsoft.Storage/storageAccounts', variables('uniqueStorageAccountName')), '2015-06-15').primaryEndpoints['blob']]",
+            "WaitForIoStormCompletion" : "[parameters('WaitForIoStormCompletion')]"
           }
         }
       }
@@ -428,8 +429,7 @@
             "VMIoBlockSize": "[parameters('vmIoBlockSizeInBytes')]",
             "VMIoDuration": "[parameters('vmIoDurationInSec')]",
             "VMIoReadPercentage": "[parameters('vmIoReadPercentage')]",
-            "VMIoMaxLatency": "[parameters('vmIoLatencyThresholdInMS')]",
-            "WaitForIoStormCompletion" : "[parameters('WaitForIoStormCompletion')]"
+            "VMIoMaxLatency": "[parameters('vmIoLatencyThresholdInMS')]"            
           }
         }
       }
