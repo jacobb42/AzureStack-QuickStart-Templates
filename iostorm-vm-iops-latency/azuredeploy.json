@@ -92,7 +92,14 @@
       "metadata": {
         "description": "VM IO workload read percentage."
       }
-    }
+    },
+    "vmFixedIops": {
+      "type": "int",
+      "defaultValue": 0,
+      "metadata": {
+        "description": "If non-0 each VM will perform vmFixedIops indefinitely."
+      }
+    }        
   },
   "variables": {
     "imagePublisher": "MicrosoftWindowsServer",
@@ -401,7 +408,8 @@
             "AzureStorageAccount": "[variables('uniqueStorageAccountName')]",
             "AzureStorageAccessKey": "[listKeys(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')), '2015-06-15').key1]",
             "AzureStorageEndpoint": "[reference(resourceId('Microsoft.Storage/storageAccounts', variables('uniqueStorageAccountName')), '2015-06-15').primaryEndpoints['blob']]",
-            "WaitForIoStormCompletion" : "[parameters('WaitForIoStormCompletion')]"
+            "WaitForIoStormCompletion" : "[parameters('WaitForIoStormCompletion')]",
+            "FixedIops": "[parameters('vmFixedIops')]" 
           }
         }
       }
@@ -435,7 +443,8 @@
             "VMIoBlockSize": "[parameters('vmIoBlockSizeInBytes')]",
             "VMIoDuration": "[parameters('vmIoDurationInSec')]",
             "VMIoReadPercentage": "[parameters('vmIoReadPercentage')]",
-            "VMIoMaxLatency": "[parameters('vmIoLatencyThresholdInMS')]"            
+            "VMIoMaxLatency": "[parameters('vmIoLatencyThresholdInMS')]",
+            "FixedIops": "[parameters('vmFixedIops')]"             
           }
         }
       }
