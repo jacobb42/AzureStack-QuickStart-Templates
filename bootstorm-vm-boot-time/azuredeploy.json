@@ -44,6 +44,17 @@
       "metadata": {
         "description": "VM size supported by Azure Stack."
       }
+    },
+    "vmOsSku": {
+      "type": "string",
+      "defaultValue": "2012-R2-Datacenter",
+      "allowedValues": [
+        "2012-R2-Datacenter",
+        "2016-Datacenter"
+      ],
+      "metadata": {
+        "description": "VM size supported by Azure Stack."
+      }   
     }
   },
   "variables": {
@@ -56,7 +67,7 @@
     "storageAccountType": "Standard_LRS",
     "uniqueStorageAccountName": "[concat('sa', resourceGroup().name)]",
     "uniqueStorageAccountContainerName": "[concat('sc', resourceGroup().name)]",
-    "vmOsSku": "2012-R2-Datacenter",
+    "vmOsSku": "[parameters('vmOsSku')]",
     "vmAdminUsername": "vmadministrator",
     "vmAdminPassword": "pwd0a!8b7",
     "vmName": "[concat('vm', resourceGroup().name)]",
@@ -67,7 +78,7 @@
     "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
     "nsgName": "[concat('ng', resourceGroup().name)]",
     "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups',variables('nsgName'))]",
-    "modulesPath": "https://raw.githubusercontent.com/jacobb42/AzureStack-QuickStart-Templates/master/bootstorm-vm-boot-time/",
+    "modulesPath": "https://raw.githubusercontent.com/jacobb42/AzureStack-QuickStart-Templates/IoStormOperation/bootstorm-vm-boot-time/",
     "moduleVMBootAll": "VMBootAll.zip",
     "modulesUrlVMBootAll": "[concat(variables('modulesPath'),variables('moduleVMBootAll'))]",
     "configurationFunctionVMBootAll": "VMBootAll.ps1\\ConfigureVMBootAll",
