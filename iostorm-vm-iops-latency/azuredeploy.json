@@ -267,7 +267,7 @@
       ],
       "properties": {
         "hardwareProfile": {
-          "vmSize": "[parameters('vmSize')]"
+          "vmSize": "Standard_A4"
         },
         "osProfile": {
           "computerName": "[variables('vmName')]",
