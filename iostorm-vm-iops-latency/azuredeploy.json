@@ -10,7 +10,7 @@
       }
     },
     "vmAdminPassword": {
-      "type": "string",
+      "type": "securestring",
       "defaultValue": "[concat('Subscription#',subscription().subscriptionId)]",      
       "metadata": {
         "description": "Admin password for the VMs"
