@@ -38,6 +38,10 @@
         "Standard_A4",
         "Standard_A5",
         "Standard_A6",
+        "Standard_A7",
+        "Standard_D1",
+        "Standard_D2",
+        "Standard_D3",
         "Standard_A7"
       ],
       "metadata": {
@@ -111,6 +115,7 @@
     "storageAccountType": "Standard_LRS",
     "uniqueStorageAccountName": "[tolower(concat('sa', resourceGroup().name))]",
     "uniqueStorageAccountContainerName": "[tolower(concat('sc', resourceGroup().name))]",
+    "diagStorageAccountName": "[tolower(concat('diag', resourceGroup().name))]",
     "vmAdminUsername": "vmadministrator",    
     "vmName": "[concat('vm', resourceGroup().name)]",
     "vmOsDiskName": "[concat('od', resourceGroup().name)]",
@@ -121,7 +126,7 @@
     "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
     "nsgName": "[tolower(concat('ng', resourceGroup().name))]",
     "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups',variables('nsgName'))]",
-    "modulesPath": "https://raw.githubusercontent.com/jacobb42/AzureStack-QuickStart-Templates/IoStormOperationDev/iostorm-vm-iops-latency/",
+    "modulesPath": "https://raw.githubusercontent.com/jacobb42/AzureStack-QuickStart-Templates/master/iostorm-vm-iops-latency/",
     "moduleVMIOController": "VMIOWorkloadController.zip",
     "moduleVMIOWorkload": "VMIOWorkload.zip",
     "modulesUrlVMIOController": "[concat(variables('modulesPath'),variables('moduleVMIOController'))]",
@@ -129,7 +134,15 @@
     "configurationFunctionVMIOController": "VMIOWorkloadController.ps1\\ConfigureVMIO",
     "configurationFunctionVMIOWorkload": "VMIOWorkload.ps1\\ConfigureVMIO",
     "publicIPAddressName": "[tolower(concat('vmpip',resourceGroup().name))]",    
-    "dnsPrefix": "[tolower(concat('vmdns', resourceGroup().name))]"
+    "dnsPrefix": "[tolower(concat('vmdns', resourceGroup().name))]",
+    "diagnosticsStorageAccountName": "[variables('diagStorageAccountName')]",
+    "accountid": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/',resourceGroup().name, '/providers/','Microsoft.Storage/storageAccounts/', variables('diagnosticsStorageAccountName'))]",
+    "wadlogs": "<WadCfg> <DiagnosticMonitorConfiguration overallQuotaInMB=\"4096\" xmlns=\"http://schemas.microsoft.com/ServiceHosting/2010/10/DiagnosticsConfiguration\"> <DiagnosticInfrastructureLogs scheduledTransferLogLevelFilter=\"Error\"/> <WindowsEventLog scheduledTransferPeriod=\"PT1M\" > <DataSource name=\"Application!*[System[(Level = 1 or Level = 2)]]\" /> <DataSource name=\"Security!*[System[(Level = 1 or Level = 2)]]\" /> <DataSource name=\"System!*[System[(Level = 1 or Level = 2)]]\" /></WindowsEventLog>",
+    "wadperfcounters1": "<PerformanceCounters scheduledTransferPeriod=\"PT1M\"><PerformanceCounterConfiguration counterSpecifier=\"\\Processor(*)\\% Processor Time\" sampleRate=\"PT15S\" unit=\"Percent\"><annotation displayName=\"CPU utilization\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\Processor(*)\\% Privileged Time\" sampleRate=\"PT15S\" unit=\"Percent\"><annotation displayName=\"CPU privileged time\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\Processor(*)\\% User Time\" sampleRate=\"PT15S\" unit=\"Percent\"><annotation displayName=\"CPU user time\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\Processor Information(*)\\Processor Frequency\" sampleRate=\"PT15S\" unit=\"Count\"><annotation displayName=\"CPU frequency\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\System\\Processes\" sampleRate=\"PT15S\" unit=\"Count\"><annotation displayName=\"Processes\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\Process(_Total)\\Thread Count\" sampleRate=\"PT15S\" unit=\"Count\"><annotation displayName=\"Threads\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\Process(_Total)\\Handle Count\" sampleRate=\"PT15S\" unit=\"Count\"><annotation displayName=\"Handles\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\Memory\\% Committed Bytes In Use\" sampleRate=\"PT15S\" unit=\"Percent\"><annotation displayName=\"Memory usage\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\Memory\\Available Bytes\" sampleRate=\"PT15S\" unit=\"Bytes\"><annotation displayName=\"Memory available\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\Memory\\Committed Bytes\" sampleRate=\"PT15S\" unit=\"Bytes\"><annotation displayName=\"Memory committed\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\Memory\\Commit Limit\" sampleRate=\"PT15S\" unit=\"Bytes\"><annotation displayName=\"Memory commit limit\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk(*)\\% Disk Time\" sampleRate=\"PT15S\" unit=\"Percent\"><annotation displayName=\"Disk active time\" locale=\"en-us\"/></PerformanceCounterConfiguration>",
+    "wadperfcounters2": "<PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk(*)\\Avg. Disk sec/Write\" sampleRate=\"PT15S\" unit=\"Percent\"><annotation displayName=\"Disk average write latency\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk(*)\\Avg. Disk sec/Read\" sampleRate=\"PT15S\" unit=\"Percent\"><annotation displayName=\"Disk average read latency\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk(*)\\Avg. Disk sec/Transfer\" sampleRate=\"PT15S\" unit=\"Percent\"><annotation displayName=\"Disk average total latency\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk(*)\\% Disk Read Time\" sampleRate=\"PT15S\" unit=\"Percent\"><annotation displayName=\"Disk active read time\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk(*)\\% Disk Write Time\" sampleRate=\"PT15S\" unit=\"Percent\"><annotation displayName=\"Disk active write time\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk(*)\\Disk Transfers/sec\" sampleRate=\"PT15S\" unit=\"CountPerSecond\"><annotation displayName=\"Disk operations\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk(*)\\Disk Reads/sec\" sampleRate=\"PT15S\" unit=\"CountPerSecond\"><annotation displayName=\"Disk read operations\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk(*)\\Disk Writes/sec\" sampleRate=\"PT15S\" unit=\"CountPerSecond\"><annotation displayName=\"Disk write operations\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk(*)\\Disk Bytes/sec\" sampleRate=\"PT15S\" unit=\"BytesPerSecond\"><annotation displayName=\"Disk speed\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk(*)\\Disk Read Bytes/sec\" sampleRate=\"PT15S\" unit=\"BytesPerSecond\"><annotation displayName=\"Disk read speed\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk(*)\\Disk Write Bytes/sec\" sampleRate=\"PT15S\" unit=\"BytesPerSecond\"><annotation displayName=\"Disk write speed\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\LogicalDisk(*)\\% Free Space\" sampleRate=\"PT15S\" unit=\"Percent\"><annotation displayName=\"Disk free space (percentage)\" locale=\"en-us\"/></PerformanceCounterConfiguration></PerformanceCounters>",     
+    "wadcfgxstart": "[concat(variables('wadlogs'), variables('wadperfcounters1'), variables('wadperfcounters2'), '<Metrics resourceId=\"')]",
+    "wadmetricsresourceid": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name , '/providers/', 'Microsoft.Compute/virtualMachines/')]",
+    "wadcfgxend": "\"><MetricAggregation scheduledTransferPeriod=\"PT1H\"/><MetricAggregation scheduledTransferPeriod=\"PT1M\"/></Metrics></DiagnosticMonitorConfiguration></WadCfg>"    
   },
   "resources": [
     {
@@ -141,6 +154,15 @@
         "accountType": "[variables('storageAccountType')]"
       }
     },
+    {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[tolower(variables('diagStorageAccountName'))]",
+      "location": "[variables('location')]",
+      "properties": {
+        "accountType": "[variables('storageAccountType')]"
+      }
+    },    
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkSecurityGroups",
@@ -448,6 +470,64 @@
           }
         }
       }
-    }
+    },    
+    {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(variables('vmName'),copyIndex(),'/Microsoft.Azure.Diagnostics.IaasDiagnostics')]",
+      "location": "[variables('location')]",
+      "copy": {
+        "name": "workerDiag",
+        "count": "[parameters('vmCount')]"
+      },
+      "dependsOn": [
+        "[concat('Microsoft.Compute/virtualMachines/',variables('vmName'),copyIndex())]",
+        "[concat('Microsoft.Storage/storageAccounts/',variables('diagStorageAccountName'))]"
+      ],
+      "properties": {
+        "publisher": "Microsoft.Azure.Diagnostics",
+        "type": "IaaSDiagnostics",
+        "typeHandlerVersion": "1.4",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+              "xmlCfg": "[base64(concat(variables('wadcfgxstart'), variables('wadmetricsresourceid'), concat(variables('vmName'),copyIndex()), variables('wadcfgxend')))]",
+              "storageAccount": "[variables('diagStorageAccountName')]"          
+        },
+        "protectedSettings": {
+          "storageAccountName": "[variables('diagStorageAccountName')]",
+          "storageAccountKey": "[listkeys(variables('accountid'), '2015-05-01-preview').key1]",
+          "storageAccountEndPoint": "[reference(concat('Microsoft.Storage/storageAccounts/', variables('diagStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob]"
+        }                  
+      }
+    },    
+    {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(variables('vmName'),'/Microsoft.Azure.Diagnostics.IaasDiagnostics')]",
+      "location": "[variables('location')]",
+      "copy": {
+        "name": "workerDiag",
+        "count": "[parameters('vmCount')]"
+      },
+      "dependsOn": [
+        "[concat('Microsoft.Compute/virtualMachines/',variables('vmName'))]",
+        "[concat('Microsoft.Storage/storageAccounts/',variables('diagStorageAccountName'))]"
+      ],
+      "properties": {
+        "publisher": "Microsoft.Azure.Diagnostics",
+        "type": "IaaSDiagnostics",
+        "typeHandlerVersion": "1.4",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+              "xmlCfg": "[base64(concat(variables('wadcfgxstart'), variables('wadmetricsresourceid'), variables('vmName'), variables('wadcfgxend')))]",
+              "storageAccount": "[variables('diagStorageAccountName')]"          
+        },
+        "protectedSettings": {
+          "storageAccountName": "[variables('diagStorageAccountName')]",
+          "storageAccountKey": "[listkeys(variables('accountid'), '2015-05-01-preview').key1]",
+          "storageAccountEndPoint": "[reference(concat('Microsoft.Storage/storageAccounts/', variables('diagStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob]"
+        }                  
+      }
+    }    
   ]
 }
