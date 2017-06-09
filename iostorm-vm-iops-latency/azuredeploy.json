@@ -126,7 +126,7 @@
     "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
     "nsgName": "[tolower(concat('ng', resourceGroup().name))]",
     "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups',variables('nsgName'))]",
-    "modulesPath": "https://raw.githubusercontent.com/jacobb42/AzureStack-QuickStart-Templates/master/iostorm-vm-iops-latency/",
+    "modulesPath": "https://raw.githubusercontent.com/Azure/AzureStack-QuickStart-Templates/master/iostorm-vm-iops-latency/",
     "moduleVMIOController": "VMIOWorkloadController.zip",
     "moduleVMIOWorkload": "VMIOWorkload.zip",
     "modulesUrlVMIOController": "[concat(variables('modulesPath'),variables('moduleVMIOController'))]",
@@ -491,35 +491,6 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
               "xmlCfg": "[base64(concat(variables('wadcfgxstart'), variables('wadmetricsresourceid'), concat(variables('vmName'),copyIndex()), variables('wadcfgxend')))]",
-              "storageAccount": "[variables('diagStorageAccountName')]"          
-        },
-        "protectedSettings": {
-          "storageAccountName": "[variables('diagStorageAccountName')]",
-          "storageAccountKey": "[listkeys(variables('accountid'), '2015-05-01-preview').key1]",
-          "storageAccountEndPoint": "[reference(concat('Microsoft.Storage/storageAccounts/', variables('diagStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob]"
-        }                  
-      }
-    },    
-    {
-      "apiVersion": "2015-06-15",
-      "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(variables('vmName'),'/Microsoft.Azure.Diagnostics.IaasDiagnostics')]",
-      "location": "[variables('location')]",
-      "copy": {
-        "name": "workerDiag",
-        "count": "[parameters('vmCount')]"
-      },
-      "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/',variables('vmName'))]",
-        "[concat('Microsoft.Storage/storageAccounts/',variables('diagStorageAccountName'))]"
-      ],
-      "properties": {
-        "publisher": "Microsoft.Azure.Diagnostics",
-        "type": "IaaSDiagnostics",
-        "typeHandlerVersion": "1.4",
-        "autoUpgradeMinorVersion": true,
-        "settings": {
-              "xmlCfg": "[base64(concat(variables('wadcfgxstart'), variables('wadmetricsresourceid'), variables('vmName'), variables('wadcfgxend')))]",
               "storageAccount": "[variables('diagStorageAccountName')]"          
         },
         "protectedSettings": {
