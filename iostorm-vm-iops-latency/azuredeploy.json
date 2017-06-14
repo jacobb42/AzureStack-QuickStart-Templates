@@ -42,12 +42,23 @@
         "Standard_D1",
         "Standard_D2",
         "Standard_D3",
-        "Standard_A7"
+        "Standard_D4",
+        "Standard_D11",
+        "Standard_D12",
+        "Standard_D13",
+        "Standard_D14"
       ],
       "metadata": {
         "description": "VM size supported by Azure Stack."
       }
     },
+    "StorageAccountEndPoint": {
+      "type": "string",
+      "defaultValue": "https://azurestack.local",
+      "metadata": {
+        "description": "Storage account endpoint for diagnostic logs"
+      }
+    },         
     "vmDataDiskSizeInGB": {
       "type": "int",
       "defaultValue": 5,
@@ -487,7 +498,7 @@
       "properties": {
         "publisher": "Microsoft.Azure.Diagnostics",
         "type": "IaaSDiagnostics",
-        "typeHandlerVersion": "1.4",
+        "typeHandlerVersion": "1.5",
         "autoUpgradeMinorVersion": true,
         "settings": {
               "xmlCfg": "[base64(concat(variables('wadcfgxstart'), variables('wadmetricsresourceid'), concat(variables('vmName'),copyIndex()), variables('wadcfgxend')))]",
@@ -496,7 +507,7 @@
         "protectedSettings": {
           "storageAccountName": "[variables('diagStorageAccountName')]",
           "storageAccountKey": "[listkeys(variables('accountid'), '2015-05-01-preview').key1]",
-          "storageAccountEndPoint": "[reference(concat('Microsoft.Storage/storageAccounts/', variables('diagStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob]"
+          "storageAccountEndPoint": "[parameters('StorageAccountEndPoint')"
         }                  
       }
     }    
