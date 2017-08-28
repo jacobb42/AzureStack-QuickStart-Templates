@@ -95,7 +95,7 @@
     },
     "vmIoReadPercentage": {
       "type": "int",
-      "defaultValue": 90,
+      "defaultValue": 70,
       "metadata": {
         "description": "VM IO workload read percentage."
       }
@@ -143,219 +143,7 @@
     "configurationFunctionVMIOController": "VMIOWorkloadController.ps1\\ConfigureVMIO",
     "configurationFunctionVMIOWorkload": "VMIOWorkload.ps1\\ConfigureVMIO",
     "publicIPAddressName": "[tolower(concat('vmpip',resourceGroup().name))]",    
-    "dnsPrefix": "[tolower(concat('vmdns', resourceGroup().name))]",
-    "diskArray": [
-      {
-        "vhd": {
-        "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex(),'/',variables('vmDataDiskName'),copyIndex(),'-0','.vhd')]"
-        },
-        "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-0')]",
-        "createOption": "Empty",
-        "caching": "None",
-        "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
-        "lun": 0
-      },
-      {
-        "vhd": {
-        "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex(),'/',variables('vmDataDiskName'),copyIndex(),'-1','.vhd')]"
-        },
-        "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-1')]",
-        "createOption": "Empty",
-        "caching": "None",
-        "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
-        "lun": 1
-      },
-      {
-        "vhd": {
-        "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex(),'/',variables('vmDataDiskName'),copyIndex(),'-2','.vhd')]"
-        },
-        "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-2')]",
-        "createOption": "Empty",
-        "caching": "None",
-        "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
-        "lun": 2
-      },
-      {
-        "vhd": {
-        "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex(),'/',variables('vmDataDiskName'),copyIndex(),'-3','.vhd')]"
-        },
-        "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-3')]",
-        "createOption": "Empty",
-        "caching": "None",
-        "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
-        "lun": 3
-      },
-      {
-        "vhd": {
-        "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex(),'/',variables('vmDataDiskName'),copyIndex(),'-4','.vhd')]"
-        },
-        "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-4')]",
-        "createOption": "Empty",
-        "caching": "None",
-        "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
-        "lun": 4
-      },
-      {
-        "vhd": {
-        "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex(),'/',variables('vmDataDiskName'),copyIndex(),'-5','.vhd')]"
-        },
-        "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-5')]",
-        "createOption": "Empty",
-        "caching": "None",
-        "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
-        "lun": 5
-      },
-      {
-        "vhd": {
-        "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex(),'/',variables('vmDataDiskName'),copyIndex(),'-6','.vhd')]"
-        },
-        "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-6')]",
-        "createOption": "Empty",
-        "caching": "None",
-        "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
-        "lun": 6
-      },
-      {
-        "vhd": {
-        "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex(),'/',variables('vmDataDiskName'),copyIndex(),'-7','.vhd')]"
-        },
-        "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-7')]",
-        "createOption": "Empty",
-        "caching": "None",
-        "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
-        "lun": 7
-      },
-      {
-        "vhd": {
-        "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex(),'/',variables('vmDataDiskName'),copyIndex(),'-8','.vhd')]"
-        },
-        "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-8')]",
-        "createOption": "Empty",
-        "caching": "None",
-        "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
-        "lun": 8
-      },
-      {
-        "vhd": {
-        "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex(),'/',variables('vmDataDiskName'),copyIndex(),'-9','.vhd')]"
-        },
-        "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-9')]",
-        "createOption": "Empty",
-        "caching": "None",
-        "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
-        "lun": 9
-      },
-      {
-        "vhd": {
-        "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex(),'/',variables('vmDataDiskName'),copyIndex(),'-10','.vhd')]"
-        },
-        "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-10')]",
-        "createOption": "Empty",
-        "caching": "None",
-        "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
-        "lun": 10
-      },
-      {
-        "vhd": {
-        "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex(),'/',variables('vmDataDiskName'),copyIndex(),'-11','.vhd')]"
-        },
-        "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-11')]",
-        "createOption": "Empty",
-        "caching": "None",
-        "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
-        "lun": 11
-      },
-      {
-        "vhd": {
-        "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex(),'/',variables('vmDataDiskName'),copyIndex(),'-12','.vhd')]"
-        },
-        "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-12')]",
-        "createOption": "Empty",
-        "caching": "None",
-        "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
-        "lun": 12
-      },
-      {
-        "vhd": {
-        "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex(),'/',variables('vmDataDiskName'),copyIndex(),'-13','.vhd')]"
-        },
-        "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-13')]",
-        "createOption": "Empty",
-        "caching": "None",
-        "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
-        "lun": 13
-      },
-      {
-        "vhd": {
-        "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex(),'/',variables('vmDataDiskName'),copyIndex(),'-14','.vhd')]"
-        },
-        "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-14')]",
-        "createOption": "Empty",
-        "caching": "None",
-        "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
-        "lun": 14
-      },
-      {
-        "vhd": {
-        "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex(),'/',variables('vmDataDiskName'),copyIndex(),'-15','.vhd')]"
-        },
-        "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-15')]",
-        "createOption": "Empty",
-        "caching": "None",
-        "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
-        "lun": 15
-      },
-      {
-        "vhd": {
-        "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex(),'/',variables('vmDataDiskName'),copyIndex(),'-16','.vhd')]"
-        },
-        "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-16')]",
-        "createOption": "Empty",
-        "caching": "None",
-        "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
-        "lun": 16
-      },
-      {
-        "vhd": {
-        "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex(),'/',variables('vmDataDiskName'),copyIndex(),'-17','.vhd')]"
-        },
-        "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-17')]",
-        "createOption": "Empty",
-        "caching": "None",
-        "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
-        "lun": 17
-      },
-      {
-        "vhd": {
-        "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex(),'/',variables('vmDataDiskName'),copyIndex(),'-18','.vhd')]"
-        },
-        "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-18')]",
-        "createOption": "Empty",
-        "caching": "None",
-        "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
-        "lun": 18
-      },
-      {
-        "vhd": {
-        "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex(),'/',variables('vmDataDiskName'),copyIndex(),'-19','.vhd')]"
-        },
-        "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-19')]",
-        "createOption": "Empty",
-        "caching": "None",
-        "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
-        "lun": 19
-      },
-      {
-        "vhd": {
-        "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex(),'/',variables('vmDataDiskName'),copyIndex(),'-20','.vhd')]"
-        },
-        "name": "[concat(variables('vmDataDiskName'),copyIndex(),'-20')]",
-        "createOption": "Empty",
-        "caching": "None",
-        "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
-        "lun": 20
-      }
-    ]
+    "dnsPrefix": "[tolower(concat('vmdns', resourceGroup().name))]"
   },
   "resources": [
     {
@@ -569,7 +357,22 @@
             "caching": "ReadWrite",
             "createOption": "FromImage"
           },
-          "dataDisks": "[take(variables('diskArray'),parameters('vmDataDiskCount'))]"
+          "copy": [
+            {
+              "name": "dataDisks",
+              "count": "[parameters('vmDataDiskCount')]",
+              "input": {
+                "vhd": {                  
+                  "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('uniqueStorageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),copyIndex('vmLoop'),'/',variables('vmDataDiskName'),copyIndex('vmLoop'),'-',copyIndex('dataDisks'),'.vhd')]"                  
+                },
+                "name": "[concat(variables('vmDataDiskName'),copyIndex('vmLoop'),'-',copyIndex('dataDisks'))]",
+                "diskSizeGB": "[parameters('vmDataDiskSizeInGB')]",
+                "lun": "[copyIndex('dataDisks')]",
+                "createOption": "Empty",
+                "caching": "None"
+              }
+            }
+          ]          
         },
         "networkProfile": {
           "networkInterfaces": [
