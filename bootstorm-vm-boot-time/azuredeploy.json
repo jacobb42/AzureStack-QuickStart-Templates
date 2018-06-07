@@ -91,7 +91,7 @@
     "configurationFunctionVMBootAll": "VMBootAll.ps1\\ConfigureVMBootAll",
     "publicIPAddressName": "[tolower(concat('vmpip',resourceGroup().name))]",
     "dnsPrefix": "[tolower(concat('vmdns', resourceGroup().name))]",
-    "controllerVmSize": "Standard_A4"
+    "controllerVmSize": "Standard_A6"
   },
   "resources": [
     {
